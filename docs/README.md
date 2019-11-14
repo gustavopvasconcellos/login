@@ -92,22 +92,23 @@ For now these blocks do not have any required or optional blocks.
 
 Through the Storefront, you can change the `login`'s behavior and interface. However, you also can make in your theme app, as Store theme does.
 
-| Prop name                             | Type      | Description                                      | Default value |
-| ------------------------------------- | --------- | ------------------------------------------------ | ------------- |
-| `optionsTitle`                        | `String`  | Set title of login options                       | -             |
-| `emailAndPasswordTitle`               | `String`  | Set title of login with email and password       | -             |
-| `accessCodeTitle`                     | `String`  | Set title of login by access code                | -             |
-| `emailPlaceholder`                    | `String`  | Set placeholder to email input                   | -             |
-| `passwordPlaceholder`                 | `String`  | Set placeholder to password input                | -             |
-| `showPasswordVerificationIntoTooltip` | `Boolean` | Set show password format verification as tooltip | -             |
-| `acessCodePlaceholder`                | `String`  | Set placeholder to access code input             | -             |
-| `showIconProfile`                     | `Boolean` | Enables icon `hpa-profile`                       | -             |
-| `iconLabel`                           | `String`  | Set label of the login button                    | -             |
-| `providerPasswordButtonLabel`         | `String`  | Set Password login button text                   | -             |
-| `hasIdentifierExtension`              | `Boolean` | Enables identifier extension configurations      | -             |
-| `identifierPlaceholder`               | `String`  | Set placeholder for the identifier extension     | -             |
-| `invalidIdentifierError`              | `String`  | Set error message for invalid user identifier    | -             |
-| `mirrorTooltipToRight`                | `Boolean` | Makes login tooltip open towards the right side  | -             |
+| Prop name                             | Type                                    | Description                                              | Default value |
+| ------------------------------------- | --------------------------------------- | -------------------------------------------------------- | ------------- |
+| `optionsTitle`                        | `String`                                | Set title of login options                               | -             |
+| `emailAndPasswordTitle`               | `String`                                | Set title of login with email and password               | -             |
+| `accessCodeTitle`                     | `String`                                | Set title of login by access code                        | -             |
+| `emailPlaceholder`                    | `String`                                | Set placeholder to email input                           | -             |
+| `passwordPlaceholder`                 | `String`                                | Set placeholder to password input                        | -             |
+| `showPasswordVerificationIntoTooltip` | `Boolean`                               | Set show password format verification as tooltip         | -             |
+| `acessCodePlaceholder`                | `String`                                | Set placeholder to access code input                     | -             |
+| `showIconProfile`                     | `Boolean`                               | Enables icon `hpa-profile`                               | -             |
+| `iconLabel`                           | `String`                                | Set label of the login button                            | -             |
+| `providerPasswordButtonLabel`         | `String`                                | Set Password login button text                           | -             |
+| `hasIdentifierExtension`              | `Boolean`                               | Enables identifier extension configurations              | -             |
+| `identifierPlaceholder`               | `String`                                | Set placeholder for the identifier extension             | -             |
+| `invalidIdentifierError`              | `String`                                | Set error message for invalid user identifier            | -             |
+| `mirrorTooltipToRight`                | `Boolean`                               | Makes login tooltip open towards the right side          | -             |
+| `iconsProps`                          | `{ "viewBox": String, "size": Number }` | Props to be passed down to the icons from `store-icons`. | -             |
 
 You can also change the `login-content`'s behaviour and interface through the Store front.
 
@@ -134,15 +135,17 @@ This app can be extended through the `plugins.json` file of the store builder. T
 #### User Identifier Extension
 
 The Email/Password login takes two inputs:
+
 - The user email (his identifier)
 - The user password
 
-The `User Identifier Extension` allows other identifiers to be used in the login form, *as long as it can be resolved to the user email*.
+The `User Identifier Extension` allows other identifiers to be used in the login form, _as long as it can be resolved to the user email_.
 For example, if your account stores the National Identity Document of each user, the Email/Password login would be changed to ask for the following two inputs:
+
 - The user National Identity Document (his identifier)
 - The user password
 
-There is a limitation to this feature. Every user must have an email to be logged in, so the user identifier *must be able to be resolved to an email*. If you want to use an identifier other than the email, you must create a resolver app (or an extension app) that returns an email, given an identifier.
+There is a limitation to this feature. Every user must have an email to be logged in, so the user identifier _must be able to be resolved to an email_. If you want to use an identifier other than the email, you must create a resolver app (or an extension app) that returns an email, given an identifier.
 For example, imagine the user `John`, whose email is `john@example.com` and whose National Identity Document is `12345`. When he types his document (`12345`), your app must receive the `12345`, find out that it belongs to John, find out that John's email is `john@example.com` and return this email to the login app.
 
 When an extension app returns an email to the login app, it acts like the user just typed in that email. So if it returns `null`, for example, a message like `"The email is invalid"` will appear. This message, along with some others, may be edited in the Store Front, as described in the `Blocks API` section (eg. `"The User Identifier Extension is invalid"`).
@@ -152,6 +155,7 @@ When an extension app returns an email to the login app, it acts like the user j
 To create your extension app, there are five steps you must worry about.
 
 - First, you must add `login` as your app's dependency. In the `manifest.json` file:
+
 ```json
 "dependencies": {
   "vtex.login": "2.x"
@@ -159,6 +163,7 @@ To create your extension app, there are five steps you must worry about.
 ```
 
 - Second, you need to add the `store` builder to your app. In the `manifest.json` file:
+
 ```json
 "builders": {
   "store": "0.x",
@@ -166,6 +171,7 @@ To create your extension app, there are five steps you must worry about.
 ```
 
 - Third, you must extend the `user-identifier` `interface` defined by the login app. You can choose any interface name you want, which will be represented here by {{InterfaceName}}. You will need to create a component for that interface, but for now it will be represented by {{ComponentName}}. In the `store/interfaces.json` file:
+
 ```json
 "user-identifier.{{InterfaceName}}": {
   "component": "{{ComponentName}}"
@@ -173,6 +179,7 @@ To create your extension app, there are five steps you must worry about.
 ```
 
 - Fourth, you must plug in your `interface` to the login app. In the `store/plugins.json` file:
+
 ```json
 "login > user-identifier": "user-identifier.{{InterfaceName}}",
 "login-content > user-identifier": "user-identifier.{{InterfaceName}}",
@@ -183,7 +190,11 @@ To create your extension app, there are five steps you must worry about.
 ```js
 import { useState, useCallback, useEffect } from 'react'
 
-const ComponentName = ({ renderInput, identifierPlaceholder, registerSubmitter }) => {
+const ComponentName = ({
+  renderInput,
+  identifierPlaceholder,
+  registerSubmitter,
+}) => {
   // The component receives 3 props:
   // - renderInput is a function that returns the same Input component used by the login app, defined in styleguide.
   //   It receives an object with three named parameters, trivially used by Inputs with react: value, onChange, placeholder.
@@ -220,7 +231,6 @@ const ComponentName = ({ renderInput, identifierPlaceholder, registerSubmitter }
 }
 
 export default ComponentName
-
 ```
 
 After following the five steps, your extension app will be good to go. Just install it in your account and it will replace the `email` Input in the login form.
@@ -295,7 +305,7 @@ You can check if others are passing through similar issues [here](https://github
 
 ## Contributing
 
-Check it out [how to contribute](https://github.com/vtex-apps/awesome-io#contributing) with this project. 
+Check it out [how to contribute](https://github.com/vtex-apps/awesome-io#contributing) with this project.
 
 ## Tests
 
