@@ -49,7 +49,7 @@ export const LoginPropTypes = {
   onOutSideBoxClick: PropTypes.func.isRequired,
   /** Function called when the user clicks on the icon*/
   onProfileIconClick: PropTypes.func.isRequired,
-  /** Props to passed to icons from store-icons */
+  /** Props passed to icons from store-icons */
   iconsProps: PropTypes.shape({
     viewBox: PropTypes.string,
     size: PropTypes.number,
