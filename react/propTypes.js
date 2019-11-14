@@ -34,6 +34,11 @@ export const LoginContainerProptypes = {
   invalidIdentifierError: PropTypes.string,
   /** Determines if the tooltip opens towards the right side */
   mirrorTooltipToRight: PropTypes.bool,
+  /** Props passed to icons from store-icons */
+  iconsProps: PropTypes.shape({
+    viewBox: PropTypes.string,
+    size: PropTypes.number,
+  }),
 }
 
 export const LoginPropTypes = {
@@ -49,11 +54,6 @@ export const LoginPropTypes = {
   onOutSideBoxClick: PropTypes.func.isRequired,
   /** Function called when the user clicks on the icon*/
   onProfileIconClick: PropTypes.func.isRequired,
-  /** Props passed to icons from store-icons */
-  iconsProps: PropTypes.shape({
-    viewBox: PropTypes.string,
-    size: PropTypes.number,
-  }),
   /** Runtime context. */
   runtime: PropTypes.shape({
     history: PropTypes.shape({
