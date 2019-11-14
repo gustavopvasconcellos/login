@@ -14,9 +14,9 @@ import { LoginPropTypes } from '../propTypes'
 
 import styles from '../styles.css'
 
-const profileIcon = (iconSize, labelClasses, classes) => (
+const profileIcon = (iconSize, labelClasses, classes, iconsProps) => (
   <div className={classNames(labelClasses, classes)}>
-    <IconProfile size={iconSize} />
+    <IconProfile size={iconSize} {...iconsProps} />
   </div>
 )
 class LoginComponent extends Component {
@@ -37,6 +37,7 @@ class LoginComponent extends Component {
       onProfileIconClick,
       sessionProfile,
       showIconProfile,
+      iconsProps,
       runtime: {
         history: {
           location: { pathname },
@@ -50,7 +51,7 @@ class LoginComponent extends Component {
       <Fragment>
         {showIconProfile &&
           renderIconAsLink &&
-          profileIcon(iconSize, labelClasses, iconClasses)}
+          profileIcon(iconSize, labelClasses, iconClasses, iconsProps)}
         {sessionProfile ? (
           <span
             className={`${styles.profile} t-action--small order-1 pl4 ${labelClasses} dn db-l`}
@@ -88,7 +89,9 @@ class LoginComponent extends Component {
     return (
       <ButtonWithIcon
         variation="tertiary"
-        icon={showIconProfile && profileIcon(iconSize, labelClasses)}
+        icon={
+          showIconProfile && profileIcon(iconSize, labelClasses, '', iconsProps)
+        }
         iconPosition={showIconProfile ? 'left' : 'right'}
         onClick={onProfileIconClick}
       >
@@ -105,7 +108,12 @@ class LoginComponent extends Component {
   }
 
   render() {
-    const { isBoxOpen, onOutSideBoxClick, sessionProfile, mirrorTooltipToRight } = this.props
+    const {
+      isBoxOpen,
+      onOutSideBoxClick,
+      sessionProfile,
+      mirrorTooltipToRight,
+    } = this.props
 
     return (
       <div className={`${styles.container} flex items-center fr`}>
@@ -114,8 +122,15 @@ class LoginComponent extends Component {
           {isBoxOpen && (
             <Overlay>
               <OutsideClickHandler onOutsideClick={onOutSideBoxClick}>
-                <div className={`${styles.box} z-max absolute`} style={mirrorTooltipToRight ? { left: 50 } : { right: -50 }}>
-                  <div className={`${styles.arrowUp} absolute top-0 ${mirrorTooltipToRight ? 'left-0 ml3' : 'right-0 mr3'} shadow-3 bg-base rotate-45 h2 w2`} />
+                <div
+                  className={`${styles.box} z-max absolute`}
+                  style={mirrorTooltipToRight ? { left: 50 } : { right: -50 }}
+                >
+                  <div
+                    className={`${styles.arrowUp} absolute top-0 ${
+                      mirrorTooltipToRight ? 'left-0 ml3' : 'right-0 mr3'
+                    } shadow-3 bg-base rotate-45 h2 w2`}
+                  />
                   <div className={`${styles.contentContainer} shadow-3 mt3`}>
                     <LoginContent
                       profile={sessionProfile}
