@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `iconsProps` prop to `LoginComponent`.
+
 ## [2.19.2] - 2019-11-13
 
 ### Added
