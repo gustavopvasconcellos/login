@@ -1,7 +1,6 @@
 {
   "login": {
     "component": "Login",
-    "render": "client",
     "allowed": [
       "user-identifier",
       "icon-profile",

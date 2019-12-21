@@ -103,6 +103,4 @@ Login.getSchema = () => ({
   },
 })
 
-const LoginWithSession = withSession({
-  loading: <Loading />,
-})(injectIntl(LoginComponent))
+const LoginWithSession = withSession({ renderWhileLoading: true })(injectIntl(LoginComponent))
