@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, Suspense } from 'react'
 import {
   Link,
   withRuntimeContext,
@@ -12,12 +12,14 @@ import { IconProfile } from 'vtex.store-icons'
 import Overlay from 'vtex.react-portal/Overlay'
 import { ButtonWithIcon } from 'vtex.styleguide'
 
-import LoginContent from '../LoginContent'
 import { truncateString } from '../utils/format-string'
 import { translate } from '../utils/translate'
 import { LoginPropTypes } from '../propTypes'
 
 import styles from '../styles.css'
+import Loading from './Loading'
+
+const LoginContent = React.lazy(() => import('../LoginContent'))
 
 const ProfileIcon = ({ iconSize, labelClasses, classes }) => {
   const hasIconBlock = Boolean(useChildBlock({ id: 'icon-profile' }))
@@ -55,12 +57,10 @@ class LoginComponent extends Component {
       onProfileIconClick,
       sessionProfile,
       showIconProfile,
-      runtime: {
-        history: {
-          location: { pathname },
-        },
-      },
+      runtime: { history },
     } = this.props
+
+    const pathname = history && history.location && history.location.pathname
 
     const iconClasses = 'flex items-center'
     const iconLabel = iconLabelProfile || translate('store/login.signIn', intl)
@@ -155,12 +155,14 @@ class LoginComponent extends Component {
                     } shadow-3 bg-base rotate-45 h2 w2`}
                   />
                   <div className={`${styles.contentContainer} shadow-3 mt3`}>
-                    <LoginContent
-                      profile={sessionProfile}
-                      loginCallback={this.onClickLoginButton}
-                      isInitialScreenOptionOnly
-                      {...this.props}
-                    />
+                    <Suspense fallback={<div className="bg-base relative"><Loading /></div>}>
+                      <LoginContent
+                        profile={sessionProfile}
+                        loginCallback={this.onClickLoginButton}
+                        isInitialScreenOptionOnly
+                        {...this.props}
+                      />
+                    </Suspense>
                   </div>
                 </div>
               </OutsideClickHandler>
