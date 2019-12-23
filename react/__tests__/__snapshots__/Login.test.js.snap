@@ -38,14 +38,18 @@ exports[`<Login /> component should match snapshot when loading 1`] = `
                 class="content flex relative bg-base justify-around overflow-visible pa4 center contentInitialScreen items-baseline"
               >
                 <div
-                  class="loading"
+                  data-testid="loading-session"
                 >
                   <div
-                    class="w-100 tc c-emphasis pv8"
+                    class="loading"
                   >
                     <div
-                      class="spinner"
-                    />
+                      class="w-100 tc c-emphasis pv8"
+                    >
+                      <div
+                        class="spinner"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
