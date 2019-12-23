@@ -5,7 +5,7 @@ import {
   ExtensionPoint,
   useChildBlock,
 } from 'vtex.render-runtime'
-import OutsideClickHandler from 'react-outside-click-handler'
+
 import classNames from 'classnames'
 
 import { IconProfile } from 'vtex.store-icons'
@@ -18,6 +18,8 @@ import { LoginPropTypes } from '../propTypes'
 
 import styles from '../styles.css'
 import Loading from './Loading'
+import Popover from './Popover'
+import OutsideClickHandler from './OutsideClickHandler'
 
 const LoginContent = React.lazy(() => import('../LoginContent'))
 
@@ -145,26 +147,16 @@ class LoginComponent extends Component {
           {isBoxOpen && (
             <Overlay>
               <OutsideClickHandler onOutsideClick={onOutSideBoxClick}>
-                <div
-                  className={`${styles.box} z-max absolute`}
-                  style={mirrorTooltipToRight ? { left: 50 } : { right: -50 }}
-                >
-                  <div
-                    className={`${styles.arrowUp} absolute top-0 ${
-                      mirrorTooltipToRight ? 'left-0 ml3' : 'right-0 mr3'
-                    } shadow-3 bg-base rotate-45 h2 w2`}
-                  />
-                  <div className={`${styles.contentContainer} shadow-3 mt3`}>
-                    <Suspense fallback={<div className="bg-base relative"><Loading /></div>}>
-                      <LoginContent
-                        profile={sessionProfile}
-                        loginCallback={this.onClickLoginButton}
-                        isInitialScreenOptionOnly
-                        {...this.props}
-                      />
-                    </Suspense>
-                  </div>
-                </div>
+                <Popover mirrorTooltipToRight={mirrorTooltipToRight}>
+                  <Suspense fallback={<div className="bg-base relative"><Loading /></div>}>
+                    <LoginContent
+                      profile={sessionProfile}
+                      loginCallback={this.onClickLoginButton}
+                      isInitialScreenOptionOnly
+                      {...this.props}
+                    />
+                  </Suspense>
+                </Popover>
               </OutsideClickHandler>
             </Overlay>
           )}
