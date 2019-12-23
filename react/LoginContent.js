@@ -379,7 +379,9 @@ class LoginContent extends Component {
         {({ loading }) => (
           <div className={className}>
             {loading ? (
-              <Loading />
+              <div data-testid="loading-session">
+                <Loading />
+              </div>
             ) : (
               <Fragment>
                 {!profile && this.shouldRenderLoginOptions && !loading
