@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Renders login button on SSR
 - Loads login content lazily
+- Uses internal, lighter OutsideClickHandler
 
 ## [2.21.1] - 2019-12-18
 
