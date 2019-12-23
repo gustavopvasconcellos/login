@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'react-testing-library'
+import { render } from '@vtex/test-tools/react'
 import { IntlProvider } from 'react-intl'
 import defautMessages from '../../messages/en.json'
 
