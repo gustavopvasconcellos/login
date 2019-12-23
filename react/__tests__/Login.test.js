@@ -1,5 +1,5 @@
 import React from 'react'
-import { renderWithIntl } from 'intl-utils'
+import { renderWithIntl } from '../testUtils/intl-utils'
 
 import Login from '../Login'
 
@@ -7,12 +7,12 @@ import { AuthState } from 'vtex.react-vtexid'
 
 describe('<Login /> component', () => {
   it('should match snapshot when loading', async () => {
-    AuthState.mockImplementationOnce(({ children }) =>
-      children({ loading: true })
-    )
+    AuthState.mockImplementationOnce(({ children }) => children({ loading: true }))
 
     const { asFragment } = renderWithIntl(<Login isBoxOpen />)
     await Promise.resolve()
+    // TODO: use something better than a timeout here
+    await new Promise(resolve => setTimeout(resolve, 100))
     expect(asFragment()).toMatchSnapshot()
   })
 
