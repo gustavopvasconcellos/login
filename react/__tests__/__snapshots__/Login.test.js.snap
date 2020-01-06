@@ -35,10 +35,10 @@ exports[`<Login /> component should match snapshot when loading 1`] = `
               class="contentContainer shadow-3 mt3"
             >
               <div
-                class="content flex relative bg-base justify-around overflow-visible pa4 center contentInitialScreen items-baseline"
+                data-testid="loading-session"
               >
                 <div
-                  data-testid="loading-session"
+                  class="bg-base relative"
                 >
                   <div
                     class="loading"
