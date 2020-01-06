@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
 import { Button } from 'vtex.styleguide'
-import { AuthService } from 'vtex.react-vtexid'
+import { AuthServiceLazy } from 'vtex.react-vtexid'
 
 import { translate } from '../utils/translate'
 import styles from '../styles.css'
@@ -32,7 +32,7 @@ class OAuth extends Component {
     const { intl, children, provider, loginCallback } = this.props
     return (
       <div className={className(styles.button, styles.buttonSocial, styleByProviderName[provider] || styles.customOAuthOptionBtn)}>
-        <AuthService.OAuthPopup useNewSession provider={provider} onSuccess={() => loginCallback()}>
+        <AuthServiceLazy.OAuthPopup useNewSession provider={provider} onSuccess={() => loginCallback()}>
           {({ loading, action: openOAuthPopup }) => (
             <Button
               isLoading={loading}
@@ -46,7 +46,7 @@ class OAuth extends Component {
               </span>
             </Button>
           )}
-        </AuthService.OAuthPopup>
+        </AuthServiceLazy.OAuthPopup>
       </div>
     )
   }

@@ -148,7 +148,7 @@ class LoginComponent extends Component {
             <Overlay>
               <OutsideClickHandler onOutsideClick={onOutSideBoxClick}>
                 <Popover mirrorTooltipToRight={mirrorTooltipToRight}>
-                  <Suspense fallback={<div className="bg-base relative"><Loading /></div>}>
+                  <Suspense fallback={<Loading />}>
                     <LoginContent
                       profile={sessionProfile}
                       loginCallback={this.onClickLoginButton}

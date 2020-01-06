@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
 import { Input, Button } from 'vtex.styleguide'
-import { AuthState, AuthService } from 'vtex.react-vtexid'
+import { AuthStateLazy, AuthServiceLazy } from 'vtex.react-vtexid'
 
 import { translate } from '../utils/translate'
 import { isValidPassword, isValidAccessCode } from '../utils/format-check'
@@ -93,7 +93,7 @@ class RecoveryPassword extends Component {
         content={
           <Fragment>
             <div className={`${styles.inputContainer} ${styles.inputContainerAccessCode} pv3`}>
-              <AuthState.Token>
+              <AuthStateLazy.Token>
                 {({ value, setValue }) => (
                   <Input
                     token
@@ -109,7 +109,7 @@ class RecoveryPassword extends Component {
                     }
                   />
                 )}
-              </AuthState.Token>
+              </AuthStateLazy.Token>
             </div>
             <FormError show={isInvalidCode}>
               {translate('store/login.invalidCode', intl)}
@@ -118,7 +118,7 @@ class RecoveryPassword extends Component {
               {translate('store/login.wrongCode', intl)}
             </FormError>
             <div className={`${styles.inputContainer} ${styles.inputContainerPassword} pv3`}>
-              <AuthState.Password>
+              <AuthStateLazy.Password>
                 {({ value, setValue }) => (
                   <PasswordInput
                     onStateChange={({ password }) => {
@@ -132,7 +132,7 @@ class RecoveryPassword extends Component {
                     }
                   />
                 )}
-              </AuthState.Password>
+              </AuthStateLazy.Password>
             </div>
             <FormError show={isInvalidPassword}>
               {translate('store/login.invalidPassword', intl)}
@@ -159,7 +159,7 @@ class RecoveryPassword extends Component {
               changeTab={{ step: previous }}
             />
             <div className={`${styles.sendButton} ml-auto`}>
-              <AuthService.SetPassword
+              <AuthServiceLazy.SetPassword
                 onSuccess={this.handleSuccess}
                 onFailure={this.handleFailure}
               >
@@ -184,7 +184,7 @@ class RecoveryPassword extends Component {
                     </span>
                   </Button>
                 )}
-              </AuthService.SetPassword>
+              </AuthServiceLazy.SetPassword>
             </div>
           </Fragment>
         }

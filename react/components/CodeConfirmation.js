@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
 import { Input, Button } from 'vtex.styleguide'
-import { AuthState, AuthService } from 'vtex.react-vtexid'
+import { AuthStateLazy, AuthServiceLazy } from 'vtex.react-vtexid'
 
 import { translate } from '../utils/translate'
 import { isValidAccessCode } from '../utils/format-check'
@@ -52,7 +52,7 @@ class CodeConfirmation extends Component {
         content={
           <Fragment>
             <div className={`${styles.inputContainer} ${styles.inputContainerAccessCode} pv3`}>
-              <AuthState.Token>
+              <AuthStateLazy.Token>
                 {({ value, setValue }) => (
                   <Input
                     token
@@ -68,7 +68,7 @@ class CodeConfirmation extends Component {
                     }
                   />
                 )}
-              </AuthState.Token>
+              </AuthStateLazy.Token>
             </div>
             <FormError show={isInvalidCode}>
               {translate('store/login.invalidCode', intl)}
@@ -85,7 +85,7 @@ class CodeConfirmation extends Component {
               changeTab={{ step: previous }}
             />
             <div className={`${styles.sendButton} ml-auto`}>
-              <AuthService.LoginWithAccessKey
+              <AuthServiceLazy.LoginWithAccessKey
                 onSuccess={this.handleSuccess}
                 onFailure={this.handleFailure}
               >
@@ -102,7 +102,7 @@ class CodeConfirmation extends Component {
                     </span>
                   </Button>
                 )}
-              </AuthService.LoginWithAccessKey>
+              </AuthServiceLazy.LoginWithAccessKey>
             </div>
           </Fragment>
         }

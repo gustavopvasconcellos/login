@@ -23,7 +23,7 @@ import { LoginSchema } from './schema'
 import { LoginPropTypes } from './propTypes'
 import { getProfile } from './utils/profile'
 import { session } from 'vtex.store-resources/Queries'
-import { AuthState } from 'vtex.react-vtexid'
+import { AuthStateLazy } from 'vtex.react-vtexid'
 import { SELF_APP_NAME_AND_VERSION } from './common/global'
 
 import styles from './styles.css'
@@ -292,7 +292,7 @@ class LoginContent extends Component {
 
     return (
       <div style={style} key={0}>
-        <AuthState.IdentityProviders>
+        <AuthStateLazy.IdentityProviders>
           {({ value: options }) => {
             const [
               shouldRedirectToOauth,
@@ -322,7 +322,7 @@ class LoginContent extends Component {
               />
             )
           }}
-        </AuthState.IdentityProviders>
+        </AuthStateLazy.IdentityProviders>
       </div>
     )
   }
@@ -374,27 +374,26 @@ class LoginContent extends Component {
     const formClassName = classNames(styles.contentForm, 'dn ph4 pb6', {
       [`${styles.contentFormVisible} db `]: this.shouldRenderForm,
     })
+
     return (
-      <AuthState skip={!!profile} scope="STORE" parentAppId={SELF_APP_NAME_AND_VERSION} returnUrl={this.returnUrl}>
+      <AuthStateLazy useParentSuspense skip={!!profile} scope="STORE" parentAppId={SELF_APP_NAME_AND_VERSION} returnUrl={this.returnUrl}>
         {({ loading }) => (
-          <div className={className}>
-            {loading ? (
-              <div data-testid="loading-session">
-                <Loading />
+          loading ? (
+            <div data-testid="loading-session">
+              <Loading />
+            </div>
+          ) : (
+            <div className={className}>
+              {!profile && this.shouldRenderLoginOptions && !loading
+                ? this.renderChildren()
+                : null}
+              <div className={formClassName}>
+                {this.shouldRenderForm && renderForm ? renderForm() : null}
               </div>
-            ) : (
-              <Fragment>
-                {!profile && this.shouldRenderLoginOptions && !loading
-                  ? this.renderChildren()
-                  : null}
-                <div className={formClassName}>
-                  {this.shouldRenderForm && renderForm ? renderForm() : null}
-                </div>
-              </Fragment>
-            )}
-          </div>
+            </div>
+          )
         )}
-      </AuthState>
+      </AuthStateLazy>
     )
   }
 }

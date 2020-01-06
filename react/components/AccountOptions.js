@@ -3,7 +3,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import { Link } from 'vtex.render-runtime'
 
 import { Button } from 'vtex.styleguide'
-import { AuthService } from 'vtex.react-vtexid'
+import { AuthServiceLazy } from 'vtex.react-vtexid'
 
 import { translate } from '../utils/translate'
 import styles from '../styles.css'
@@ -33,7 +33,7 @@ class AccountOptions extends Component {
         </div>
         <hr className="mv2 o-30" />
         <div className="ma4 min-h-2 b--muted-4">
-          <AuthService.RedirectLogout returnUrl="/">
+          <AuthServiceLazy.RedirectLogout returnUrl="/">
             {({ action: logout }) => (
               <Button
                 variation="tertiary"
@@ -45,7 +45,7 @@ class AccountOptions extends Component {
                 </span>
               </Button>
             )}
-          </AuthService.RedirectLogout>
+          </AuthServiceLazy.RedirectLogout>
         </div>
       </div>
     )

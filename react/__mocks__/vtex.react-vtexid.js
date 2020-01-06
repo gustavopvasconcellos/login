@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-export const AuthService = {
+export const AuthServiceLazy = {
   RedirectLogout: ({ children }) => children({ action: () => {} }),
 
   LoginWithAccessKey: ({ children }) =>
@@ -37,21 +37,21 @@ export const AuthService = {
     }),
 }
 
-const AuthState = jest.fn(({ children }) => children({ loading: false }))
+const AuthStateLazy = jest.fn(({ children }) => children({ loading: false }))
 
-AuthState.Token = jest.fn(({ children }) =>
+AuthStateLazy.Token = jest.fn(({ children }) =>
   children({ value: 'value', setValue: () => {} })
 )
 
-AuthState.Password = jest.fn(({ children }) =>
+AuthStateLazy.Password = jest.fn(({ children }) =>
   children({ value: 'value', setValue: () => {} })
 )
 
-AuthState.Email = jest.fn(({ children }) =>
+AuthStateLazy.Email = jest.fn(({ children }) =>
   children({ value: 'value', setValue: () => {} })
 )
 
-AuthState.IdentityProviders = jest.fn(({ children }) =>
+AuthStateLazy.IdentityProviders = jest.fn(({ children }) =>
   children({
     value: {
       accessKey: true,
@@ -61,4 +61,4 @@ AuthState.IdentityProviders = jest.fn(({ children }) =>
   })
 )
 
-export { AuthState }
+export { AuthStateLazy }

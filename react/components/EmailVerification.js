@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 
-import { AuthState, AuthService } from 'vtex.react-vtexid'
+import { AuthStateLazy, AuthServiceLazy } from 'vtex.react-vtexid'
 import { Input, Button } from 'vtex.styleguide'
 
 import Form from './Form'
@@ -71,7 +71,7 @@ class EmailVerification extends Component {
         content={
           <Fragment>
             <div className={`${styles.inputContainer} ${styles.inputContainerEmail}`}>
-              <AuthState.Email>
+              <AuthStateLazy.Email>
                 {({ value, setValue }) => (
                   <Input
                     type="email"
@@ -84,7 +84,7 @@ class EmailVerification extends Component {
                     }
                   />
                 )}
-              </AuthState.Email>
+              </AuthStateLazy.Email>
             </div>
             <FormError show={isInvalidEmail}>
               {translate('store/login.invalidEmail', intl)}
@@ -108,7 +108,7 @@ class EmailVerification extends Component {
               />
             )}
             <div className={`${styles.sendButton} ml-auto`}>
-              <AuthService.SendAccessKey
+              <AuthServiceLazy.SendAccessKey
                 useNewSession
                 onSuccess={() => {
                   isCreatePassword
@@ -140,7 +140,7 @@ class EmailVerification extends Component {
                     <span className="t-small">{translate('store/login.send', intl)}</span>
                   </Button>
                 )}
-              </AuthService.SendAccessKey>
+              </AuthServiceLazy.SendAccessKey>
             </div>
           </Fragment>
         }

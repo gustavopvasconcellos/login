@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import { Spinner } from 'vtex.styleguide'
-import { AuthService } from 'vtex.react-vtexid'
+import { AuthServiceLazy } from 'vtex.react-vtexid'
 
 import styles from '../styles.css'
 
@@ -37,7 +37,7 @@ OAuthAutoRedirect.propTypes = {
 
 function Wrapper({ provider, ...props }) {
   return (
-    <AuthService.OAuthRedirect useNewSession provider={provider}>
+    <AuthServiceLazy.OAuthRedirect useNewSession provider={provider}>
       {({ loading, action: redirectToOAuthPage }) => (
         <OAuthAutoRedirect
           {...props}
@@ -46,7 +46,7 @@ function Wrapper({ provider, ...props }) {
           redirect={redirectToOAuthPage}
         />
       )}
-    </AuthService.OAuthRedirect>
+    </AuthServiceLazy.OAuthRedirect>
   )
 }
 Wrapper.propTypes = {
