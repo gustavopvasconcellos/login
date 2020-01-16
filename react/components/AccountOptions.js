@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
-import { Link } from 'vtex.render-runtime'
+import { Link, ExtensionPoint } from 'vtex.render-runtime'
 
 import { Button } from 'vtex.styleguide'
 import { AuthService } from 'vtex.react-vtexid'
@@ -14,7 +14,7 @@ class AccountOptions extends Component {
     /** Intl object*/
     intl: intlShape,
   }
-
+  
   render() {
     const { intl } = this.props
     return (
@@ -31,7 +31,7 @@ class AccountOptions extends Component {
             </button>
           </Link>
         </div>
-        <hr className="mv2 o-30" />
+        <ExtensionPoint id="menu" />
         <div className="ma4 min-h-2 b--muted-4">
           <AuthService.RedirectLogout returnUrl="/">
             {({ action: logout }) => (

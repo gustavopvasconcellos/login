@@ -6,7 +6,8 @@
       "user-identifier",
       "icon-profile",
       "icon-eye-sight",
-      "icon-arrow-back"
+      "icon-arrow-back",
+      "menu"
     ]
   },
   "login-content": {
